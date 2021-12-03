@@ -1,0 +1,38 @@
+---
+title: "The Game of Life"
+author: "Lagoa em Dados - UFSCar Lagoa do Sino"
+date: "02/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Camada de Input 
+
+Uma função que captura as preferências do usuário para inicializar o jogo da vida. As variáveis importantes são a dimensão da malha (de 10 a 500 $px$), os tipos de objetos iniciais e suas quantidades. 
+
+```{R}
+get.preferences<-function(dim=100,
+                          obj=c("glider","lines","points","squares","cruxx"),
+                          no=3){
+# Dim - Grid dimension
+# obj - object choice for initialization
+# no - number of objects at the start
+
+# Pessoal, aqui falta o código que confere se as entradas do usuário fazem sentido.   
+  
+return(list(dim,obj,no))
+}
+```
+
+## Teste da camada de input
+
+```{R}
+# Comando inserido pelo usuário
+initial.values<-get.preferences(dim=225,obj="glider")
+# resultado
+print(initial.values)
+```
+
