@@ -28,12 +28,35 @@ return(list(dim,obj,no))
 }
 ```
 
+## Criar a matriz (espaço) onde o jogo acontece
+
+```{R}
+create.matrix<-function(initial=NULL){
+  
+  size<-initial[[1]]
+  value<-rep(0,size^2)
+  M<-matrix(value,nc=size)
+  #print(M)
+
+  return(list("Matrix"=M))
+}
+```
+
+# Workflow - Onde apenas rodamos as funções 
+
 ## Teste da camada de input
 
 ```{R}
 # Comando inserido pelo usuário
-initial.values<-get.preferences(dim=225,obj="glider")
+initial.values<-get.preferences(dim=10,obj="glider")
 # resultado
+initial.values[[1]]
 print(initial.values)
 ```
 
+## Execução da função criar matriz
+
+```{R}
+space<-create.matrix(initial.values)
+space
+``` 
