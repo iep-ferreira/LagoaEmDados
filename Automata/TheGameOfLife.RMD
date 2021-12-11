@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Denner passou aqui
+## Mateus passou aqui
 ## Camada de Input 
 
 Uma função que captura as preferências do usuário para inicializar o jogo da vida. As variáveis importantes são a dimensão da malha (de 10 a 500 $px$), os tipos de objetos iniciais e suas quantidades. 
