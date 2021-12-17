@@ -27,6 +27,15 @@ get.preferences<-function(
 }
 ```
 
+
+```{R}
+test.funct<-function(dim=500){
+  if(dim>500) {print("Error."); break}
+  print("A")
+}
+
+test.funct(dim=500)
+```
 ## Criar a matriz (espaço) onde o jogo acontece
 
 ```{R}
