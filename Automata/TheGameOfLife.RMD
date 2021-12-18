@@ -15,16 +15,15 @@ knitr::opts_chunk$set(echo = TRUE)
 Uma função que captura as preferências do usuário para inicializar o jogo da vida. As variáveis importantes são a dimensão da malha (de 10 a 500 $px$), os tipos de objetos iniciais e suas quantidades. 
 
 ```{R}
-get.preferences<-function(dim=100,
-                          obj=c("glider","lines","points","squares","cruxx"),
-                          no=3){
-# Dim - Grid dimension
-# obj - object choice for initialization
-# no - number of objects at the start
-
-# Pessoal, aqui falta o código que confere se as entradas do usuário fazem sentido.   
-  
-return(list(dim,obj,no))
+get.preferences<-function(
+  dim = 500, # Grid dimension
+  obj = c("glider","lines","points","squares","cruxx"), # Object choice for initialization
+  no = 3 # Number of objects at the start
+    ){ 
+  if(dim < 10 || dim > 500){
+    print("A dimensão da matriz deve estar entre 10 e 500"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
+  }
+ return(list(dim,obj,no))
 }
 ```
 
