@@ -24,10 +24,18 @@ get.preferences<-function(
   if(dim < 10 || dim > 500){
     print("A dimensão da matriz deve estar entre 10 e 500"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
   }
+  if(dim %% 1 != 0){
+    print("O número da dimensão deve ser inteiro"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
+  }
  return(list(dim,obj,no))
 }
 ```
 
+
+
+```{R}
+is.numeric("oi")
+```
 
 ```{R}
 test.funct<-function(dim=500){
