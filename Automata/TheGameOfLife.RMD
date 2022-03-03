@@ -9,7 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Denner passou aqui
-## Mateus passou aqui
+## Mateus passou aqui 24/02/2022
+## Kaik passou aqui
 ## Camada de Input 
 
 Uma função que captura as preferências do usuário para inicializar o jogo da vida. As variáveis importantes são a dimensão da malha (de 10 a 500 $px$), os tipos de objetos iniciais e suas quantidades. 
@@ -23,10 +24,21 @@ get.preferences<-function(
   if(dim < 10 || dim > 500){
     print("A dimensão da matriz deve estar entre 10 e 500"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
   }
+  if(dim %% 1 != 0){
+    print("O número da dimensão deve ser inteiro"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
+  }
  return(list(dim,obj,no))
 }
 ```
 
+```{R}
+test.funct<-function(dim=500){
+  if(dim>500) {print("Error."); break}
+  print("A")
+}
+
+test.funct(dim=500)
+```
 ## Criar a matriz (espaço) onde o jogo acontece
 
 ```{R}
