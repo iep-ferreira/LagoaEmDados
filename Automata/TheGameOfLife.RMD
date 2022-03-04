@@ -1,16 +1,14 @@
 ---
 title: "The Game of Life"
 author: "Lagoa em Dados - UFSCar Lagoa do Sino"
-date: "02/12/2021"
+date: "03/03/2021"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-## Denner passou aqui
-## Mateus passou aqui 24/02/2022
-## Kaik passou aqui
+
 ## Camada de Input 
 
 Uma função que captura as preferências do usuário para inicializar o jogo da vida. As variáveis importantes são a dimensão da malha (de 10 a 500 $px$), os tipos de objetos iniciais e suas quantidades. 
@@ -31,26 +29,108 @@ get.preferences<-function(
 }
 ```
 
-```{R}
-test.funct<-function(dim=500){
-  if(dim>500) {print("Error."); break}
-  print("A")
-}
+## Função para configurar opções
+```{r}
+get.preferences<-function(
+  dim = 500, # Grid dimension
+  obj = "glider", # Object choice for initialization
+  no = 3 # Number of objects at the start
+    ){ 
 
-test.funct(dim=500)
+obj.names <- c("glider","line","point","square","cruxx")
+
+  if(dim < 10 || dim > 500){
+    print("A dimensão da matriz deve estar entre 10 e 500"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
+  }
+
+if( no %% 1 != 0 ){
+    print("O número de objetos deve ser inteiro"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
+  }
+
+if( length(obj) == 1) obj <- rep(obj, no)
+
+if( length(obj) != no ){
+    print("A lista de objetos deve ter tamanho compatível com o número de objetos"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
+  }
+
+for(i in 1:length(obj)){
+  if( sum(obj[i] == obj.names) == 0){
+    print("Os objetos devem ser dos tipos: glider, line, point, square, or cruxx"); .Internal(.invokeRestart(list(NULL, NULL), NULL))
+  }
+} # end for
+
+
+ return(list("dim" = round(dim),"obj" = obj,"number_objects" = no))
+}
 ```
+
+```{R}
+get.preferences(dim=25.7, obj = "glider", no = 2)
+```
+
 ## Criar a matriz (espaço) onde o jogo acontece
 
 ```{R}
 create.matrix<-function(initial=NULL){
   
   size<-initial[[1]]
-  value<-rep(0,size^2)
-  M<-matrix(value,nc=size)
-  #print(M)
+  value<-rep( 0, size^2 )
+  M<-matrix(value, nc = size)
 
-  return(list("Matrix"=M))
+  return( list("Matrix" = M, "dim" = size) )
 }
+```
+
+
+## Criar objetos iniciais 
+
++ para criar linhas
+
+```{r}
+create_line <- function(space = space, pos = pos, centr = centr){
+
+AUX <- space$M
+i <- centr[1]
+j <- centr[2]
+  
+  if(pos == "diag 1") AUX[i + 1, j + 1] <- AUX[i, j] <- AUX[i - 1, j - 1] <- 1
+
+  if(pos == "diag 2") AUX[i - 1, j - 1] <- AUX[i, j] <- AUX[i + 1, j + 1] <- 1
+  
+  if(pos == "horiz") AUX[i, j - 1] <- AUX[i, j] <- AUX[i, j + 1] <- 1
+
+  if(pos == "vert") AUX[i - 1, j] <- AUX[i, j] <- AUX[i + 1, j] <- 1
+
+return(AUX)
+}
+```
+
++ Incluindo os objetos na incialização do espaço
+
+```{r}
+initial_state <- function( ops ){
+pos.names <- c("diag 1", "diag 2", "horiz", "vert")    
+space <-  create.matrix( ops )
+
+for(i in 1: ops$number_objects ){
+pos <- sample(pos.names, 1)
+centr <- sample(2:(ops$dim-2), 2, replace = T)
+if(ops$obj[i] == "line" ) space$Matrix <- create_line(space, pos, centr )
+}
+
+return( space )
+}
+```
+
+
+# Imprime a matrix
+
+```{r}
+print_space <-  function( space = space ){
+
+  mat <- space$Matrix
+  image(1:nrow(mat), 1:ncol(mat), mat, c(0,0,0):c(1,1,1), xlab = "", ylab = "", axes = F)  
+} 
 ```
 
 # Workflow - Onde apenas rodamos as funções 
@@ -59,15 +139,10 @@ create.matrix<-function(initial=NULL){
 
 ```{R}
 # Comando inserido pelo usuário
-initial.values<-get.preferences(dim=10,obj="glider")
-# resultado
-initial.values[[1]]
-print(initial.values)
+options <-get.preferences(dim = 100, obj="line")
+# Inicializar
+options$dim
+sp <- initial_state( options )
+print_space( sp )
 ```
 
-## Execução da função criar matriz
-
-```{R}
-space<-create.matrix(initial.values)
-space
-``` 
