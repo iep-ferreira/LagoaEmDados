@@ -1,2 +1,14 @@
-# LagoaEmDados
-Repositório com atividades do Grupo de Pesquisa, Ensino e Extensão em Data Science da Lagoa do Sino, UFSCar Buri
+
+
+<h1 align="justify">
+    <p>  LagoaEmDados </p>
+</h1>
+
+**Sumário**
+
+-[Sobre](#sobre)
+
+
+## Sobre 
+
+Este repositório tem como objetivo reproduzir o o jogo da vida. 
