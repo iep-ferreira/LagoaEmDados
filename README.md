@@ -1,6 +1,6 @@
 
 
-<h1 align="justify">
+<h1 align="Center">
     <p>  LagoaEmDados </p>
 </h1>
 
